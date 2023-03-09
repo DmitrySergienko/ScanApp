@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/composeHostFragment"
-        android:name="com.example.newscanapp.ComposeHostFragment"
+        android:name="com.example.newscanapp.presentation.ComposeHostFragment"
         android:label="fragment_compose_host"
         tools:layout="@layout/fragment_compose_host" >
         <action
