@@ -32,10 +32,26 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose true
     }
 }
 
 dependencies {
+
+    //compose navigation
+    def nav_version = "2.5.1"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+
+    // Compose
+    implementation "androidx.compose.runtime:runtime:1.3.1"
+    implementation "androidx.compose.ui:ui:1.3.1"
+    implementation "androidx.compose.foundation:foundation:1.3.1"
+    implementation "androidx.compose.foundation:foundation-layout:1.3.1"
+    implementation "androidx.compose.material:material:1.3.1"
+    implementation "androidx.compose.runtime:runtime-livedata:1.3.1"
+    implementation "androidx.compose.ui:ui-tooling:1.3.1"
+    implementation "com.google.android.material:compose-theme-adapter:1.2.0"
 
     //vision library
     implementation 'com.google.android.gms:play-services-vision:18.0.0'
