@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NewScanApp</string>
+    <string name="scan">SCAN</string>
+</resources>
