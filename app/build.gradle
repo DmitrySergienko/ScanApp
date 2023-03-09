@@ -38,6 +38,10 @@ android {
 
 dependencies {
 
+    //navigation graph
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
+
     //compose navigation
     def nav_version = "2.5.1"
     implementation("androidx.navigation:navigation-compose:$nav_version")
