@@ -12,6 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
+import com.example.newscanapp.R
 import com.example.newscanapp.databinding.FragmentMainBinding
 import com.example.newscanapp.presentation.utils.BaseFragment
 import com.google.android.gms.vision.CameraSource
@@ -30,13 +32,11 @@ class MainFragment:
     private lateinit var mCameraSource: CameraSource
     private lateinit var textRecognizer: TextRecognizer
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navigateToLocalStorage()
 
         requestForPermission()
 
@@ -121,6 +121,13 @@ class MainFragment:
             scanSuccess(tc_id, tc_name)
         }
 
+    }
+
+    private fun navigateToLocalStorage(){
+        binding.storageButton.setOnClickListener{
+            findNavController()
+                .navigate(R.id.action_mainFragment_to_composeHostFragment)
+        }
     }
 
     private fun getID(scan: CharSequence): String {

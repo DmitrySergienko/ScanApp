@@ -9,5 +9,18 @@
         android:id="@+id/mainFragment"
         android:name="com.example.newscanapp.presentation.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_composeHostFragment"
+            app:destination="@id/composeHostFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/composeHostFragment"
+        android:name="com.example.newscanapp.ComposeHostFragment"
+        android:label="fragment_compose_host"
+        tools:layout="@layout/fragment_compose_host" >
+        <action
+            android:id="@+id/action_composeHostFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>
