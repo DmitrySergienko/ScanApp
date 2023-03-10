@@ -40,6 +40,7 @@ class MainFragment :
     private lateinit var textRecognizer: TextRecognizer
     private var client_name = ""
     private var id_number = ""
+    private var result = ""
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -112,10 +113,8 @@ class MainFragment :
                         stringBuilder.append(item.value)
                         stringBuilder.append("\n")
                     }
-                    if(binding.tvResult.text != null){
-                        binding.tvResult.text = stringBuilder.toString()
-                    }else
-                    {return@post}
+                        result = stringBuilder.toString()
+                        //binding.tvResult.text = stringBuilder.toString()
 
                 }
             }
@@ -124,7 +123,6 @@ class MainFragment :
 
         //button click
         binding.btCalculate.setOnClickListener {
-            val result = binding.tvResult.text
 
             Log.d(MY_TAG, "result:  ${getID(result)}")
             val tc_id = binding.tvId
