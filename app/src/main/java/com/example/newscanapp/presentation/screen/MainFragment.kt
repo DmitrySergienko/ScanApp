@@ -3,6 +3,7 @@ package com.example.newscanapp.presentation.screen
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
+import com.example.newscanapp.R
 import com.example.newscanapp.data.HistoryDatabase
 import com.example.newscanapp.data.TestDB
 import com.example.newscanapp.databinding.FragmentMainBinding
@@ -110,10 +112,15 @@ class MainFragment :
                         stringBuilder.append(item.value)
                         stringBuilder.append("\n")
                     }
-                    binding.tvResult.text = stringBuilder.toString()
+                    if(binding.tvResult.text != null){
+                        binding.tvResult.text = stringBuilder.toString()
+                    }else
+                    {return@post}
+
                 }
             }
         })
+        cleanRoom()
 
         //button click
         binding.btCalculate.setOnClickListener {
@@ -122,12 +129,11 @@ class MainFragment :
             Log.d(MY_TAG, "result:  ${getID(result)}")
             val tc_id = binding.tvId
             val tc_name = binding.tvName
-            tc_id.text = "${getID(result)}"
-            tc_name.text = "${getName(result)}"
+            tc_id.text = getID(result)
+            tc_name.text = getName(result)
 
-            scanSuccess(tc_id, tc_name)
+            scan(tc_id, tc_name)
         }
-            cleanRoom()
     }
 
     private fun attachItemToRoom(name:String,id:String) {
@@ -175,17 +181,28 @@ class MainFragment :
         return result
     }
 
-    private fun scanSuccess(viewID: TextView, viewName: TextView) {
+    private fun scan(viewID: TextView, viewName: TextView) {
         if ((viewID.text == "id not detected") || (viewName.text == "Name not detected")) {
             return
         } else {
-            Toast.makeText(requireContext(), "Scan complete successful!", Toast.LENGTH_SHORT).show()
-            client_name = viewName.text.toString()
-            id_number =viewID.text.toString()
+            //alert dialog confirm scan result
+            val addInfoDialog = AlertDialog.Builder(requireContext())
+                .setMessage("Name: ${viewName.text.toString()}\nID: ${viewID.text.toString()}")
+                .setPositiveButton(R.string.accept) { _, _ ->
 
-            attachItemToRoom(client_name,id_number)
+                    //save scan result in bd
+                    client_name = viewName.text.toString()
+                    id_number =viewID.text.toString()
+                    attachItemToRoom(client_name,id_number)
+                }
+                .setNegativeButton(R.string.scan_again) { _, _ ->
+                    //stay on same fragment
+                }.create()
+
+            addInfoDialog.show()
         }
     }
+
     private fun cleanRoom(){
         binding.cleanButton.setOnClickListener {
             val db = Room.databaseBuilder(requireContext(), HistoryDatabase::class.java, "new_db2")
