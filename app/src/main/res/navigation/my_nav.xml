@@ -7,20 +7,30 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.newscanapp.presentation.MainFragment"
+        android:name="com.example.newscanapp.presentation.screen.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
+
         <action
-            android:id="@+id/action_mainFragment_to_composeHostFragment"
-            app:destination="@id/composeHostFragment" />
+            android:id="@+id/action_mainFragment_to_history"
+            app:destination="@id/history" />
     </fragment>
     <fragment
-        android:id="@+id/composeHostFragment"
-        android:name="com.example.newscanapp.presentation.ComposeHostFragment"
-        android:label="fragment_compose_host"
-        tools:layout="@layout/fragment_compose_host" >
+        android:id="@+id/history"
+        android:name="com.example.newscanapp.History"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" >
         <action
-            android:id="@+id/action_composeHostFragment_to_mainFragment"
+            android:id="@+id/action_history_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <argument
+            android:name="NameArg"
+            app:argType="string"
+            android:defaultValue="No name" />
+        <argument
+            android:name="IdArg"
+            app:argType="string"
+            android:defaultValue="No id" />
     </fragment>
+
 </navigation>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.MainFragment">
+    tools:context=".presentation.screen.MainFragment">
 
     <ImageView
         android:id="@+id/storage_button"
@@ -16,6 +16,18 @@
         android:contentDescription="@string/local_storage"
         android:elevation="10dp"
         android:src="@drawable/baseline_storage_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/clean_button"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="40dp"
+        android:contentDescription="@string/clean"
+        android:elevation="10dp"
+        android:src="@drawable/baseline_delete_outline_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,6 +54,7 @@
 
         <TextView
             android:id="@+id/tv_result"
+            android:text="Text"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="6dp"

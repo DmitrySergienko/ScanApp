@@ -1,4 +1,4 @@
-package com.example.newscanapp.presentation
+package com.example.newscanapp.presentation.screen
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -13,24 +13,31 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-import com.example.newscanapp.R
+import androidx.room.Room
+import com.example.newscanapp.data.HistoryDatabase
+import com.example.newscanapp.data.TestDB
 import com.example.newscanapp.databinding.FragmentMainBinding
 import com.example.newscanapp.presentation.utils.BaseFragment
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 const val MY_TAG = "VVV"
 const val NAME_NOT_SCAN = "Name not detected"
 const val ID_NOT_SCAN = "id not detected"
 
-class MainFragment:
+class MainFragment :
     BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
 
     private val MY_PERMISSIONS_REQUEST_CAMERA: Int = 101
     private lateinit var mCameraSource: CameraSource
     private lateinit var textRecognizer: TextRecognizer
+    private var client_name = ""
+    private var id_number = ""
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -115,18 +122,34 @@ class MainFragment:
             Log.d(MY_TAG, "result:  ${getID(result)}")
             val tc_id = binding.tvId
             val tc_name = binding.tvName
-            tc_id.text = "ID: ${getID(result)}"
-            tc_name.text = "Name: ${getName(result)}"
+            tc_id.text = "${getID(result)}"
+            tc_name.text = "${getName(result)}"
 
             scanSuccess(tc_id, tc_name)
         }
-
+            cleanRoom()
     }
 
-    private fun navigateToLocalStorage(){
-        binding.storageButton.setOnClickListener{
+    private fun attachItemToRoom(name:String,id:String) {
+            val db =
+                Room.databaseBuilder(requireContext(), HistoryDatabase::class.java, "new_db2")
+                    .build()
+            val dao = db.historyDao()
+            val newItem = TestDB(0, name, id)
+
+            val scope = CoroutineScope(Dispatchers.IO)
+
+            scope.launch {
+                dao.insertItem(newItem)
+            }
+    }
+
+    private fun navigateToLocalStorage() {
+
+        binding.storageButton.setOnClickListener {
+            val action = MainFragmentDirections.actionMainFragmentToHistory(client_name,id_number)
             findNavController()
-                .navigate(R.id.action_mainFragment_to_composeHostFragment)
+                .navigate(action)
         }
     }
 
@@ -153,10 +176,26 @@ class MainFragment:
     }
 
     private fun scanSuccess(viewID: TextView, viewName: TextView) {
-        if ((viewID.text == "ID: id not detected") || (viewName.text == "Name: Name not detected")) {
-            Toast.makeText(requireContext(), "Scan not completed!", Toast.LENGTH_SHORT).show()
+        if ((viewID.text == "id not detected") || (viewName.text == "Name not detected")) {
+            return
         } else {
             Toast.makeText(requireContext(), "Scan complete successful!", Toast.LENGTH_SHORT).show()
+            client_name = viewName.text.toString()
+            id_number =viewID.text.toString()
+
+            attachItemToRoom(client_name,id_number)
+        }
+    }
+    private fun cleanRoom(){
+        binding.cleanButton.setOnClickListener {
+            val db = Room.databaseBuilder(requireContext(), HistoryDatabase::class.java, "new_db2")
+                .build()
+            val dao = db.historyDao()
+            val scope = CoroutineScope(Dispatchers.IO)
+
+            scope.launch {
+                dao.deleteAll()
+            }
         }
     }
 
