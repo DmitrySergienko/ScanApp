@@ -114,7 +114,7 @@ class MainFragment :
                         stringBuilder.append("\n")
                     }
                         result = stringBuilder.toString()
-                        //binding.tvResult.text = stringBuilder.toString()
+                        //  binding.tvResult.text = stringBuilder.toString()
 
                 }
             }

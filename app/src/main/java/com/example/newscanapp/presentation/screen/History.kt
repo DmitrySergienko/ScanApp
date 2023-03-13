@@ -1,4 +1,4 @@
-package com.example.newscanapp
+package com.example.newscanapp.presentation.screen
 
 
 import android.content.Context
@@ -43,6 +43,9 @@ class History : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBinding::inf
 
 @Composable
 fun ItemList(context:Context){
+
+    //room db
+
     val db = Room.databaseBuilder(context, HistoryDatabase::class.java, "new_db2").build()
     val dao = db.historyDao()
 
