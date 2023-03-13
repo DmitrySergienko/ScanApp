@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.newscanapp'
+    namespace 'com.newscanapp'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.newscanapp"
+        applicationId "com.newscanapp"
         minSdk 26
         targetSdk 33
         versionCode 1

@@ -1,4 +1,4 @@
-package com.example.newscanapp.presentation.screen
+package com.newscanapp.presentation.screen
 
 
 import android.content.Context
@@ -16,10 +16,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.room.Room
-import com.example.newscanapp.data.HistoryDatabase
-import com.example.newscanapp.data.TestDB
-import com.example.newscanapp.databinding.FragmentHistoryBinding
-import com.example.newscanapp.presentation.utils.BaseFragment
+import com.newscanapp.data.HistoryDatabase
+import com.newscanapp.data.TestDB
+import com.newscanapp.databinding.FragmentHistoryBinding
+import com.newscanapp.presentation.utils.BaseFragment
 
 
 class History : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBinding::inflate) {

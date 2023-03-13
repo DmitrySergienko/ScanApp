@@ -1,4 +1,4 @@
-package com.example.newscanapp.presentation.utils
+package com.newscanapp.presentation.utils
 
 import android.os.Bundle
 import android.view.LayoutInflater

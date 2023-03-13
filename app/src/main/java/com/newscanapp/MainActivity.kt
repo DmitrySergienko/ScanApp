@@ -1,8 +1,8 @@
-package com.example.newscanapp
+package com.newscanapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.newscanapp.databinding.ActivityMainBinding
+import com.newscanapp.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {

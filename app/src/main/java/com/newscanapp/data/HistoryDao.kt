@@ -1,4 +1,4 @@
-package com.example.newscanapp.data
+package com.newscanapp.data
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

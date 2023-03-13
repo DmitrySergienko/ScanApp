@@ -1,4 +1,4 @@
-package com.example.newscanapp.presentation.screen
+package com.newscanapp.presentation.screen
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -15,15 +15,15 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
-import com.example.newscanapp.R
-import com.example.newscanapp.data.HistoryDatabase
-import com.example.newscanapp.data.TestDB
-import com.example.newscanapp.databinding.FragmentMainBinding
-import com.example.newscanapp.presentation.utils.BaseFragment
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
+import com.newscanapp.R
+import com.newscanapp.data.HistoryDatabase
+import com.newscanapp.data.TestDB
+import com.newscanapp.databinding.FragmentMainBinding
+import com.newscanapp.presentation.utils.BaseFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -151,7 +151,7 @@ class MainFragment :
     private fun navigateToLocalStorage() {
 
         binding.storageButton.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToHistory(client_name,id_number)
+            val action = MainFragmentDirections.actionMainFragmentToHistory(client_name, id_number)
             findNavController()
                 .navigate(action)
         }
